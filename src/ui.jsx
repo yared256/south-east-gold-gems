@@ -33,7 +33,10 @@ export function Header() {
     <nav className={open ? "nav open" : "nav"} aria-label="Main">
       <NavLink to="/" end>Home</NavLink>
       <div className="dd"><NavLink to="/products">Products</NavLink>
-        <div className="menu">{products.map(p => <Link key={p.slug} to={`/products/${p.slug}`}>{p.name}</Link>)}</div></div>
+        <div className="menu">
+          <Link to="/products#gold">Gold</Link>
+          <Link to="/products#gemstones">Gemstones</Link>
+        </div></div>
       <NavLink to="/gallery">Gallery</NavLink><NavLink to="/about">About</NavLink><NavLink to="/contact">Contact</NavLink>
     </nav></div></header>;
 }
