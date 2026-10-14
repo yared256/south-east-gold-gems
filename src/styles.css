@@ -45,7 +45,7 @@ h2 { font-size: clamp(1.7rem, 3.2vw, 2.6rem); font-weight: 800; }
 .hero-media {
   position: absolute;
   inset: 0 0 0 42%;
-  background-image: linear-gradient(90deg, rgba(255,255,255,0.88) 0%, rgba(255,255,255,0.42) 30%, rgba(255,255,255,0.06) 100%), url("https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1600&q=80");
+  background-image: linear-gradient(90deg, rgba(255,255,255,0.88) 0%, rgba(255,255,255,0.42) 30%, rgba(255,255,255,0.06) 100%), url("https://ik.imagekit.io/gemsonline/wp-content/uploads/2025/01/Emrald_gemstone-1.jpg");
   background-size: cover;
   background-position: center;
   opacity: 0.95;
@@ -257,6 +257,11 @@ input, textarea { padding: 12px; border: 1px solid #9db4c8; border-radius: 6px; 
   gap: 22px;
 }
 .product-mini-card .cbody { padding: 18px; }
+.image-credit { display: block; margin-top: 8px; color: var(--muted); font-size: 0.72rem; line-height: 1.4; }
+.image-credit a { color: var(--muted); text-decoration: underline; text-underline-offset: 2px; }
+.gallery-item { min-width: 0; margin: 0; }
+.gallery-item .plain { display: block; width: 100%; }
+.gallery-item .image-credit { padding: 0 4px; }
 
 @keyframes rise { from { opacity: 0; transform: translateY(16px); } }
 @keyframes float { 0%, 100% { transform: rotate(-4deg) translateY(0); } 50% { transform: rotate(-2deg) translateY(-12px); } }

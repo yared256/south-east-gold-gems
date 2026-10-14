@@ -13,7 +13,7 @@ export const company = {
   logo: "/logo.svg",
   markets: ["Germany", "USA", "UAE", "India", "Europe", "International Markets"],
   whatsappMessage: "Hello South East Gold & Gems, I am interested in your gold and gemstone products.",
-  ceo: { name: "Abdulahe Mohammed", title: "Visionary CEO", photo: null, email: null,
+  ceo: { name: "Abdulahe Mohammed", title: "Visionary CEO", photo: "https://img.magnific.com/premium-photo/ceo-ai-generated_991150-3780.jpg", email: null,
     quote: "With more than 25 years of experience, Abdulahe Mohammed has built long-term relationships across Ethiopia's minerals sector and helped connect trusted Ethiopian resources with global buyers." },
   licenses: [
     { name: "Ministry of Mines" }, { name: "Export License" }, { name: "Business Registration" },

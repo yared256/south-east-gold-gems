@@ -2,14 +2,14 @@ import {useState, useEffect} from "react";
 import {useParams, Navigate, useLocation} from "react-router-dom";
 import {company} from "./data/company";
 import {products, gallery} from "./data/products";
-import {Button, WhatsApp, Section, Img, Pending, ProductCard, useTitle} from "./ui";
+import {Button, WhatsApp, Section, Img, ImageCredit, Pending, ProductCard, useTitle} from "./ui";
 
 const Stat = ({n, l}) => <div className="stat"><b>{n}</b><span>{l}</span></div>;
 const Markets = () => <Section title="Connecting Ethiopia to Global Markets" tone="blue">
   <p className="lead">We have built commercial relationships across {company.markets.slice(0, 4).join(", ")}, and other international markets where quality minerals and reliable export service are highly valued.</p>
   <Button to="/contact">Talk to Our International Team</Button></Section>;
 const CEO = () => <Section title="Leadership"><div className="split">
-  <Img src={company.ceo.photo} alt="CEO portrait placeholder" hue={215} label="CEO portrait"/>
+  <Img src={company.ceo.photo} alt={`Portrait of ${company.ceo.name}`} hue={215} label="CEO portrait"/>
   <div><h3>{company.ceo.name}</h3><p className="muted">{company.ceo.title}</p>
     <blockquote>{company.ceo.quote}</blockquote>
     <p>Email: {company.ceo.email || <Pending>CEO Email — Coming Soon</Pending>}</p></div></div></Section>;
@@ -33,9 +33,8 @@ export const Home = () => { useTitle("Ethiopian Gold & Gemstone Exporter", "More
       </div>
       <div className="hero-visual" aria-hidden="true">
         <div className="hero-card card-large">
-          <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=900&q=80" alt="Gemstone showcase" />
+          <img src={products.find(p => p.slug === "emerald").image} alt="Loose faceted emerald gemstones" />
         </div>
-        <div className="hero-floating hero-floating-one">Gold</div>
         <div className="hero-floating hero-floating-two">Emerald</div>
       </div>
     </div>
@@ -110,10 +109,11 @@ export const Products = () => {
             ))}
             {goldProducts.map(item => (
               <article key={item.slug} className="card product-mini-card">
-                <img className="img" src={item.image} alt={item.name} />
+                <img className="img" src={item.image} alt={item.imageAlt} />
                 <div className="cbody">
                   <h3>{item.name}</h3>
                   <p>{item.short}</p>
+                  <ImageCredit credit={item.imageCredit}/>
                   <Button to={`/products/${item.slug}`}>View product</Button>
                 </div>
               </article>
@@ -139,7 +139,7 @@ export const Products = () => {
 
 export const Product = () => { const p = products.find(x => x.slug === useParams().slug); useTitle(p?.name || "Products", p?.intro);
   if (!p) return <Navigate to="/products" replace/>;
-  return <Section><div className="split"><Img src={p.image} alt={`${p.name} placeholder`} hue={p.hue} label={p.name}/>
+  return <Section><div className="split"><div><Img src={p.image} alt={p.imageAlt} hue={p.hue} label={p.name}/><ImageCredit credit={p.imageCredit}/></div>
     <div><h1>{p.name}</h1><p className="lead">{p.intro}</p><p>{p.description}</p>
       {[["Origin",p.origin],["Quality",p.quality],["Availability",p.availability]].map(([t,v]) => <div key={t}><h3>{t}</h3><p>{v}</p></div>)}
       <div className="row"><Button to="/contact">Inquire as an International Buyer</Button><WhatsApp/></div></div></div></Section>; };
@@ -147,8 +147,8 @@ export const Product = () => { const p = products.find(x => x.slug === useParams
 export const Gallery = () => { useTitle("Gallery"); const [cat, setCat] = useState("All"); const [open, setOpen] = useState(null);
   const cats = ["All", ...gallery.map(g => g.category)]; const items = gallery.filter(g => cat === "All" || g.category === cat);
   return <Section title="Gallery"><div className="row">{cats.map(c => <button key={c} className={`chip ${c === cat ? "on" : ""}`} onClick={() => setCat(c)}>{c}</button>)}</div>
-    <div className="grid3">{items.map(g => <button key={g.id} className="plain" onClick={() => setOpen(g)} aria-label={`Open ${g.alt}`}><Img src={g.src} alt={g.alt} hue={g.hue} label={g.category}/></button>)}</div>
-    {open && <div className="lightbox" role="dialog" aria-modal="true" onClick={() => setOpen(null)}><div onClick={e => e.stopPropagation()}><Img src={open.src} alt={open.alt} hue={open.hue} label={open.category}/><button className="btn primary" autoFocus onClick={() => setOpen(null)}>Close</button></div></div>}
+    <div className="grid3">{items.map(g => <figure className="gallery-item" key={g.id}><button className="plain" onClick={() => setOpen(g)} aria-label={`Open ${g.alt}`}><Img src={g.src} alt={g.alt} hue={g.hue} label={g.category}/></button><ImageCredit credit={g.imageCredit}/></figure>)}</div>
+    {open && <div className="lightbox" role="dialog" aria-modal="true" onClick={() => setOpen(null)}><div onClick={e => e.stopPropagation()}><Img src={open.src} alt={open.alt} hue={open.hue} label={open.category}/><ImageCredit credit={open.imageCredit}/><button className="btn primary" autoFocus onClick={() => setOpen(null)}>Close</button></div></div>}
   </Section>; };
 
 export const About = () => { useTitle("About"); const steps = ["Establishment","Growth in Ethiopia's mineral sector","Development of international market relationships","Expansion of gold and gemstone export activities","Continuing toward global markets"];
