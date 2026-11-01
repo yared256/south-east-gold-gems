@@ -38,14 +38,14 @@ h2 { font-size: clamp(1.7rem, 3.2vw, 2.6rem); font-weight: 800; }
 .hero {
   position: relative;
   padding: clamp(72px, 12vw, 150px) 0;
-  background: linear-gradient(180deg, #ecf9ff 0%, #f7fcff 38%, #ffffff 100%);
+  background: #101820;
   overflow: hidden;
   animation: rise 0.8s ease both;
 }
 .hero-media {
   position: absolute;
-  inset: 0 0 0 42%;
-  background-image: linear-gradient(90deg, rgba(255,255,255,0.88) 0%, rgba(255,255,255,0.42) 30%, rgba(255,255,255,0.06) 100%), url("https://ik.imagekit.io/gemsonline/wp-content/uploads/2025/01/Emrald_gemstone-1.jpg");
+  inset: 0;
+  background-image: linear-gradient(90deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.54) 48%, rgba(0,0,0,0.7) 100%), url("https://ik.imagekit.io/gemsonline/wp-content/uploads/2025/01/Emrald_gemstone-1.jpg");
   background-size: cover;
   background-position: center;
   opacity: 0.95;
@@ -63,6 +63,12 @@ h2 { font-size: clamp(1.7rem, 3.2vw, 2.6rem); font-weight: 800; }
   position: relative;
   z-index: 2;
 }
+.hero-copy h1,
+.hero-copy .lead,
+.hero-copy .small { color: #fff; text-shadow: 0 2px 18px rgba(0, 0, 0, 0.35); }
+.hero-copy .eyebrow { color: #fff; background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(255, 255, 255, 0.35); }
+.hero-copy .ghost { color: #fff; border-color: rgba(255, 255, 255, 0.8); }
+.hero-copy .ghost:hover { background: rgba(255, 255, 255, 0.14); }
 .eyebrow {
   display: inline-flex;
   padding: 8px 16px;
@@ -257,11 +263,12 @@ input, textarea { padding: 12px; border: 1px solid #9db4c8; border-radius: 6px; 
   gap: 22px;
 }
 .product-mini-card .cbody { padding: 18px; }
-.image-credit { display: block; margin-top: 8px; color: var(--muted); font-size: 0.72rem; line-height: 1.4; }
-.image-credit a { color: var(--muted); text-decoration: underline; text-underline-offset: 2px; }
 .gallery-item { min-width: 0; margin: 0; }
 .gallery-item .plain { display: block; width: 100%; }
-.gallery-item .image-credit { padding: 0 4px; }
+.image-credits { max-width: 1160px; margin: 0 auto; padding: 0 24px 18px; color: var(--muted); font-size: 0.8rem; }
+.image-credits summary { width: fit-content; cursor: pointer; font-weight: 700; }
+.image-credits ul { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 6px 24px; padding-left: 20px; }
+.image-credits a { color: var(--muted); }
 
 @keyframes rise { from { opacity: 0; transform: translateY(16px); } }
 @keyframes float { 0%, 100% { transform: rotate(-4deg) translateY(0); } 50% { transform: rotate(-2deg) translateY(-12px); } }

@@ -1,20 +1,23 @@
 // Single source of truth for company info. Edit here; the whole site updates.
 const phone = "+251911548600";
+const secondaryPhone = "+251904170866";
 export const company = {
-  legalName: "South East International Gold and Gemstone Exporter PLC",
+  legalName: "South East International General Trading Gold & Gemstone Producer and Exporter",
   shortName: "South East Gold & Gems",
   tagline: "Trusted Ethiopian gold and gemstone exports for international buyers and partners.",
   years: "25+",
   address: "Airport Road, Dembel Square, Addis Ababa, Ethiopia",
   phoneDisplay: "+251 911 548 600",
   phone,
+  secondaryPhoneDisplay: "+251 904 170 866",
+  secondaryPhone,
   email: null,   // null shows "Coming Soon"
   website: null, // null shows "Coming Soon"
   logo: "/logo.svg",
   markets: ["Germany", "USA", "UAE", "India", "Europe", "International Markets"],
   whatsappMessage: "Hello South East Gold & Gems, I am interested in your gold and gemstone products.",
-  ceo: { name: "Abdulahe Mohammed", title: "Visionary CEO", photo: "https://img.magnific.com/premium-photo/ceo-ai-generated_991150-3780.jpg", email: null,
-    quote: "With more than 25 years of experience, Abdulahe Mohammed has built long-term relationships across Ethiopia's minerals sector and helped connect trusted Ethiopian resources with global buyers." },
+  ceo: { name: "Abdulahe Meftahe", title: "Visionary CEO", photo: "https://img.magnific.com/premium-photo/ceo-ai-generated_991150-3780.jpg", email: "debumisrak@yahoo.com",
+    quote: "With more than 25 years of experience, Abdulahe Meftahe has built long-term relationships across Ethiopia's minerals sector and helped connect trusted Ethiopian resources with global buyers." },
   licenses: [
     { name: "Ministry of Mines" }, { name: "Export License" }, { name: "Business Registration" },
     { name: "Relevant Government Institutions" }, { name: "Other Certifications" }

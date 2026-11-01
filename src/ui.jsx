@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {Link, NavLink, useLocation} from "react-router-dom";
 import {company, whatsappLink} from "./data/company";
+import {products} from "./data/products";
 
 export const useTitle = (t, d) => useEffect(() => {
   document.title = `${t} | ${company.shortName}`;
@@ -17,9 +18,6 @@ export const Section = ({title, tone, children, id}) =>
 export const Img = ({src, alt, hue = 205, label}) => src
   ? <img className="img" src={src} alt={alt} loading="lazy"/>
   : <div className="img ph" role="img" aria-label={alt} style={{"--h": hue}}><span>{label}</span></div>;
-export const ImageCredit = ({credit}) => credit && <small className="image-credit">
-  Photo: <a href={credit.source} target="_blank" rel="noopener noreferrer">{credit.credit}</a>
-</small>;
 export const Pending = ({children = "Coming Soon"}) => <span className="pending">{children}</span>;
 
 export const Logo = () => company.logo
@@ -46,10 +44,10 @@ export const Footer = () => <footer className="footer"><div className="wrap grid
   <div><Logo/><h3>{company.shortName}</h3><p>{company.legalName}</p><p>{company.tagline}</p></div>
   <div><h4>Navigate</h4>{[["/","Home"],["/products","Products"],["/gallery","Gallery"],["/about","About"],["/contact","Contact"]].map(([t,n]) => <Link key={t} to={t}>{n}</Link>)}</div>
   <div><h4>Products</h4><Link to="/products#gold">Gold</Link><Link to="/products#gemstones">Gemstones</Link></div>
-  <div><h4>Contact</h4><p>{company.phoneDisplay}</p><p>{company.address}</p><WhatsApp/></div>
-  </div><p className="copy">© {new Date().getFullYear()} {company.shortName}. All rights reserved.</p></footer>;
+  <div><h4>Contact</h4><p><a href={`tel:${company.phone}`}>{company.phoneDisplay}</a></p><p><a href={`tel:${company.secondaryPhone}`}>{company.secondaryPhoneDisplay}</a></p><p>{company.address}</p><WhatsApp/></div>
+  </div><details className="image-credits"><summary>Image credits</summary><ul>{products.map(p => <li key={p.slug}>{p.name}: <a href={p.imageCredit.source} target="_blank" rel="noopener noreferrer">{p.imageCredit.credit}</a></li>)}</ul></details><p className="copy">© {new Date().getFullYear()} {company.shortName}. All rights reserved.</p></footer>;
 export const FloatingWhatsApp = () =>
   <a className="fab" href={whatsappLink()} target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">WhatsApp</a>;
 export const ProductCard = ({p}) => <article className="card">
   <Img src={p.image} alt={p.imageAlt} hue={p.hue} label={p.name}/>
-  <div className="cbody"><h3>{p.name}</h3><p>{p.short}</p><ImageCredit credit={p.imageCredit}/><Link to={`/products/${p.slug}`}>View {p.name}</Link></div></article>;
+  <div className="cbody"><h3>{p.name}</h3><p>{p.short}</p><Link to={`/products/${p.slug}`}>View {p.name}</Link></div></article>;

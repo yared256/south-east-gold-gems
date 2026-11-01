@@ -2,7 +2,7 @@ import {useState, useEffect} from "react";
 import {useParams, Navigate, useLocation} from "react-router-dom";
 import {company} from "./data/company";
 import {products, gallery} from "./data/products";
-import {Button, WhatsApp, Section, Img, ImageCredit, Pending, ProductCard, useTitle} from "./ui";
+import {Button, WhatsApp, Section, Img, Pending, ProductCard, useTitle} from "./ui";
 
 const Stat = ({n, l}) => <div className="stat"><b>{n}</b><span>{l}</span></div>;
 const Markets = () => <Section title="Connecting Ethiopia to Global Markets" tone="blue">
@@ -22,14 +22,14 @@ export const Home = () => { useTitle("Ethiopian Gold & Gemstone Exporter", "More
       <div className="hero-copy">
         <span className="eyebrow">Ethiopian mineral export expertise</span>
         <h1>Ethiopian Gold & Gemstones. Trusted Beyond Borders.</h1>
-        <p className="lead"> South East International Gold & Gemstone Exporter brings more than 25 years of experience in Ethiopia's gold and gemstone export sector, connecting carefully sourced mineral products with international buyers and markets.</p>
+        <p className="lead"> South East International General Trading Gold & Gemstone Producer and Exporter brings more than 25 years of experience in Ethiopia's gold and gemstone export sector, connecting carefully sourced mineral products with international buyers and markets.</p>
         <div className="row"><Button to="/products#gold">Explore Our Products</Button><Button to="/contact" variant="ghost">Contact Us</Button></div>
         <div className="hero-badges">
           <span>Export-ready</span>
           <span>Buyer-focused</span>
           <span>International trade</span>
         </div>
-        <p className="small"><WhatsApp label="WhatsApp International Sales"/> {company.phoneDisplay}</p>
+        <p className="small"><WhatsApp label="WhatsApp International Sales"/> {company.phoneDisplay} · {company.secondaryPhoneDisplay}</p>
       </div>
       <div className="hero-visual" aria-hidden="true">
         <div className="hero-card card-large">
@@ -39,7 +39,7 @@ export const Home = () => { useTitle("Ethiopian Gold & Gemstone Exporter", "More
       </div>
     </div>
   </section>
-  <Section tone="blue"><div className="stats"><Stat n="25+" l="Years of Experience"/><Stat n="Global" l="Market Connections"/><Stat n={products.length} l="Core Product Categories"/><Stat n="Ethiopia" l="Based Exporter"/></div></Section>
+  <Section tone="blue"><div className="stats"><Stat n="25+" l="Years of Experience"/><Stat n="Global" l="Market Connections"/><Stat n="Multiple" l="Mineral Products"/><Stat n="Ethiopia" l="Based Exporter"/></div></Section>
   <Section title="Why International Buyers Choose Us"><div className="feature-grid">
     <div className="feature-card"><h3>Trusted sourcing</h3><p>We focus on transparent sourcing and business relationships built around long-term export confidence.</p></div>
     <div className="feature-card"><h3>Product diversity</h3><p>From gold to gemstones, our range supports buyer needs across multiple market segments and jewelry applications.</p></div>
@@ -113,7 +113,6 @@ export const Products = () => {
                 <div className="cbody">
                   <h3>{item.name}</h3>
                   <p>{item.short}</p>
-                  <ImageCredit credit={item.imageCredit}/>
                   <Button to={`/products/${item.slug}`}>View product</Button>
                 </div>
               </article>
@@ -139,7 +138,7 @@ export const Products = () => {
 
 export const Product = () => { const p = products.find(x => x.slug === useParams().slug); useTitle(p?.name || "Products", p?.intro);
   if (!p) return <Navigate to="/products" replace/>;
-  return <Section><div className="split"><div><Img src={p.image} alt={p.imageAlt} hue={p.hue} label={p.name}/><ImageCredit credit={p.imageCredit}/></div>
+  return <Section><div className="split"><div><Img src={p.image} alt={p.imageAlt} hue={p.hue} label={p.name}/></div>
     <div><h1>{p.name}</h1><p className="lead">{p.intro}</p><p>{p.description}</p>
       {[["Origin",p.origin],["Quality",p.quality],["Availability",p.availability]].map(([t,v]) => <div key={t}><h3>{t}</h3><p>{v}</p></div>)}
       <div className="row"><Button to="/contact">Inquire as an International Buyer</Button><WhatsApp/></div></div></div></Section>; };
@@ -147,21 +146,29 @@ export const Product = () => { const p = products.find(x => x.slug === useParams
 export const Gallery = () => { useTitle("Gallery"); const [cat, setCat] = useState("All"); const [open, setOpen] = useState(null);
   const cats = ["All", ...gallery.map(g => g.category)]; const items = gallery.filter(g => cat === "All" || g.category === cat);
   return <Section title="Gallery"><div className="row">{cats.map(c => <button key={c} className={`chip ${c === cat ? "on" : ""}`} onClick={() => setCat(c)}>{c}</button>)}</div>
-    <div className="grid3">{items.map(g => <figure className="gallery-item" key={g.id}><button className="plain" onClick={() => setOpen(g)} aria-label={`Open ${g.alt}`}><Img src={g.src} alt={g.alt} hue={g.hue} label={g.category}/></button><ImageCredit credit={g.imageCredit}/></figure>)}</div>
-    {open && <div className="lightbox" role="dialog" aria-modal="true" onClick={() => setOpen(null)}><div onClick={e => e.stopPropagation()}><Img src={open.src} alt={open.alt} hue={open.hue} label={open.category}/><ImageCredit credit={open.imageCredit}/><button className="btn primary" autoFocus onClick={() => setOpen(null)}>Close</button></div></div>}
+    <div className="grid3">{items.map(g => <figure className="gallery-item" key={g.id}><button className="plain" onClick={() => setOpen(g)} aria-label={`Open ${g.alt}`}><Img src={g.src} alt={g.alt} hue={g.hue} label={g.category}/></button></figure>)}</div>
+    {open && <div className="lightbox" role="dialog" aria-modal="true" onClick={() => setOpen(null)}><div onClick={e => e.stopPropagation()}><Img src={open.src} alt={open.alt} hue={open.hue} label={open.category}/><button className="btn primary" autoFocus onClick={() => setOpen(null)}>Close</button></div></div>}
   </Section>; };
 
 export const About = () => { useTitle("About"); const steps = ["Establishment","Growth in Ethiopia's mineral sector","Development of international market relationships","Expansion of gold and gemstone export activities","Continuing toward global markets"];
   return <><Section title="About South East Gold & Gems"><p className="lead">{company.legalName} is an Ethiopian gold and gemstone exporter with more than 25 years of industry experience, focused on quality, trust, and global trade relationships.</p></Section>
   <Section title="Our Story" tone="blue"><ol className="timeline"><li><b>25+ Years of Experience</b></li>{steps.map(s => <li key={s}>{s}</li>)}</ol></Section>
-  <CEO/><Markets/>
+  <CEO/>
+  <Section title="Contact" tone="blue"><div className="contact-details">
+    <p><strong>Email:</strong> <a href={`mailto:${company.ceo.email}`}>{company.ceo.email}</a></p>
+    <p><strong>Phone:</strong> <a href={`tel:${company.phone}`}>{company.phoneDisplay}</a></p>
+    <p><strong>Additional phone:</strong> <a href={`tel:${company.secondaryPhone}`}>{company.secondaryPhoneDisplay}</a></p>
+    <p><strong>Address:</strong> {company.address}</p>
+    <WhatsApp variant="primary"/>
+  </div></Section>
+  <Markets/>
   <Section title="Licensed & Committed to Compliance" tone="blue"><p className="lead">We operate in accordance with applicable Ethiopian requirements and collaborate with relevant institutions to support responsible and transparent export activity.</p>
     <div className="grid3">{company.licenses.map(l => <div className="card cbody" key={l.name}><h3>{l.name}</h3><p>{l.number || <Pending>Details to be added</Pending>}</p></div>)}</div></Section></>; };
 
 export const Contact = () => { useTitle("Contact"); const [sent, setSent] = useState(false);
   const F = ({n, t = "text", req}) => <label>{n}<input name={n} type={t} required={req}/></label>;
   return <Section title="Contact Us"><div className="split"><div>
-    <h3>{company.legalName}</h3><p>{company.address}</p><p>{company.phoneDisplay}</p><p>WhatsApp available for international clients</p>
+    <h3>{company.legalName}</h3><p>{company.address}</p><p>{company.phoneDisplay}</p><p>{company.secondaryPhoneDisplay}</p><p>WhatsApp available for international clients</p>
     <p>Email: {company.email || <Pending/>}</p><p>Website: {company.website || <Pending/>}</p><WhatsApp variant="primary"/></div>
     <form onSubmit={e => { e.preventDefault(); setSent(true); /* TODO: connect to backend/CMS */ }}>
       <F n="Name" req/><F n="Company"/><F n="Email" t="email" req/><F n="Phone" t="tel"/><F n="Country"/>
